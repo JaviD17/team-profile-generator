@@ -1,6 +1,45 @@
-// const generateEmployees = projectsArr => {
+const generateEmployees = employeesArr => {
+    const engineerEmployees = employeesArr.filter(add => {
+        if (add.engineer) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    });
 
-// }
+    const internEmployees = employeesArr.filter(add => {
+        if (add.intern) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    });
+
+    const engineerEmployeeHtmlArr = engineerEmployees.map(({ confirmAdd, add, name, id, email, addMore }) => {
+        return ``
+    });
+    return `
+            <div class="col-xs-6 col-sm-4 border">
+                <div class="card">
+                    <div class="card-header">
+                        ${employeesArr.name}
+                        <br>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                            class="bi bi-person-fill" viewBox="0 0 16 16">
+                            <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                        </svg>
+                        ${employeesArr.add}
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">ID: ${employeesArr.id}</li>
+                        <li class="list-group-item">Email: Javi@gmail.com</li>
+                        <li class="list-group-item">Office Number: 1</li>
+                    </ul>
+                </div>
+            </div>`;
+};
 
 module.exports = templateData => {
     console.log(templateData);
@@ -8,11 +47,8 @@ module.exports = templateData => {
     // destructure projects and about data from templateData based on their property key names
     // ... stands for 'rest operator' where it's used, often confused with the 'spread operator' in this context
 
-    // const {projects, about, ... header } = templateData;
+    const { name, id, email, office, ...employees } = templateData;
 
-    // console.log(projects);
-    // console.log(about);
-    // console.log(header);
 
     return `<!DOCTYPE html>
     <html lang="en">
@@ -38,7 +74,7 @@ module.exports = templateData => {
                 <div class="col-xs-6 col-sm-4 border">
                     <div class="card">
                         <div class="card-header">
-                            Javi
+                            ${name}
                             <br>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                 class="bi bi-person-fill" viewBox="0 0 16 16">
@@ -53,6 +89,7 @@ module.exports = templateData => {
                         </ul>
                     </div>
                 </div>
+                ${generateEmployees(employees)}
                 <div class="col-xs-6 col-sm-4 border">
                     <div class="card">
                         <div class="card-header">
@@ -152,7 +189,7 @@ module.exports = templateData => {
         </script>
 
         <footer class="container text-center py-3">
-            <h3 class="text-dark">&copy; ${new Date().getFullYear()} by ${header.name}</h3>
+            <h3 class="text-dark">&copy; ${new Date().getFullYear()} by ${name}</h3>
         </footer>
     </body>
     
